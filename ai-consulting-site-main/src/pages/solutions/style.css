@@ -1,0 +1,98 @@
+.po_items_ho {
+    display: flex;  /* Forces left-to-right order */
+    flex-wrap: wrap; /* Ensures items wrap when necessary */
+    gap: 2rem; /* Adds space between items */
+    justify-content: flex-start; /* Ensures correct left-to-right order */
+    align-items: flex-start; /* Keeps alignment consistent */
+}
+
+/* Each portfolio item should be in a proper row-wise structure */
+.po_item {
+    display: block;
+    width: calc(50% - 2rem); /* Ensures 2 items per row */
+    max-width: 400px; /* Keeps items neat */
+    text-align: center;
+    margin: 0.5rem;
+    position: relative;
+    background: var(--secondary-color);
+    padding: 6px;
+    border: 1px solid var(--secondary-color);
+    transition: 0.3s ease;
+    font-size: 0;
+    min-height: 300px;
+    overflow: visible !important; /* Prevents video cropping */
+}
+
+/* Ensure images display correctly */
+.po_item img {
+    max-width: 100%;
+}
+
+/* Ensure iframe (YouTube videos) remain clickable and fullscreen works */
+.po_item iframe {
+    pointer-events: auto !important;
+    position: relative;
+    z-index: 10 !important; /* High z-index ensures iframe is clickable */
+    width: 100%;
+    height: 250px;
+    border-radius: 5px; /* Optional: Rounds video corners */
+    touch-action: manipulation !important; /* Fixes Android touch issues */
+    cursor: pointer;
+}
+
+/* Overlay Content (Only Applies to Images) */
+.po_item .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--overlay-color);
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    transition: 0.3s ease-in-out;
+    opacity: 0;
+    border: 1px solid black;
+    pointer-events: none !important; /* Prevents overlay from blocking interactions */
+}
+
+/* Overlay applies only to images, NOT videos */
+.po_item img + .content {
+    pointer-events: auto;
+}
+
+/* Prevent overlay from affecting YouTube videos */
+.po_item iframe + .content {
+    display: none !important;
+}
+
+/* Overlay appears when hovering over images */
+.po_item:hover img + .content {
+    height: calc(100% - 30px);
+    width: calc(100% - 30px);
+    opacity: 1;
+    color: var(--secondary-color);
+}
+
+/* Ensure hover effects do NOT interfere with videos */
+.po_item:hover iframe {
+    z-index: 10 !important;
+}
+
+/* Style for the "View Project" Button */
+.po_item .content a {
+    background: var(--bg-color);
+    border: solid 1px var(--text-color);
+    padding: 4px 8px;
+    text-align: center;
+    font-size: 1rem;
+    pointer-events: auto; /* Ensure button is clickable */
+}
+
+.po_item .content a:hover {
+    text-decoration: none;
+}
